@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -34,6 +35,14 @@ public class GigsDaoTest {
         Gigs actualGig = new Gigs(2, band, venue, LocalDate.parse("2021-06-17"));
         assertNotNull(retrieveGig);
         assertEquals(actualGig, retrieveGig);
+
+    }
+
+    @Test
+    void getAllSuccess() {
+        List<Gigs> gigs = dao.getAll();
+
+        assertEquals(4, gigs.size());
 
     }
 }

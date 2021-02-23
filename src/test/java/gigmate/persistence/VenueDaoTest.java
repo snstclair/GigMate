@@ -7,6 +7,8 @@ import gigmate.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -28,5 +30,12 @@ public class VenueDaoTest {
         assertNotNull(retrieveVenue);
         assertEquals(actualVenue, retrieveVenue);
 
+    }
+
+    @Test
+    void getAllSuccess() {
+        List<Venue> venues = dao.getAll();
+
+        assertEquals(3, venues.size());
     }
 }

@@ -5,6 +5,8 @@ import gigmate.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -26,5 +28,12 @@ public class BandDaoTest {
         assertNotNull(retrieveBand);
         assertEquals(actualBand, retrieveBand);
 
+    }
+
+    @Test
+    void getAllSuccess() {
+        List<Band> bands = dao.getAll();
+
+        assertEquals(3, bands.size());
     }
 }
