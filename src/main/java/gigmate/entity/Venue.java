@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 // TODO add picture once figured out.
@@ -46,6 +47,14 @@ public class Venue {
      */
     public Venue(String name, String location, String stageType, String email) {
         this();
+        this.name = name;
+        this.location = location;
+        this.stageType = stageType;
+        this.email = email;
+    }
+
+    public Venue(int id, String name, String location, String stageType, String email) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.stageType = stageType;
@@ -158,6 +167,19 @@ public class Venue {
      */
     public void setGigs(Set<Gigs> gigs) {
         this.gigs = gigs;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Venue venue = (Venue) o;
+        return id == venue.id && name.equals(venue.name) && location.equals(venue.location) && stageType.equals(venue.stageType) && email.equals(venue.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, location, stageType, email);
     }
 
     @Override

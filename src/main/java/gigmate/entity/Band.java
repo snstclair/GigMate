@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 // TODO figure out how to store pictures and audio
@@ -42,6 +43,24 @@ public class Band {
      * @param email    the email
      */
     public Band(String name, String location, String genera, String email) {
+        this.name = name;
+        this.location = location;
+        this.genera = genera;
+        this.email = email;
+    }
+
+
+    /**
+     * Instantiates a new Band.
+     *
+     * @param id       the id
+     * @param name     the name
+     * @param location the location
+     * @param genera   the genera
+     * @param email    the email
+     */
+    public Band(int id, String name, String location, String genera, String email) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.genera = genera;
@@ -154,6 +173,19 @@ public class Band {
      */
     public void setGigs(Set<Gigs> gigs) {
         this.gigs = gigs;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Band band = (Band) o;
+        return id == band.id && name.equals(band.name) && location.equals(band.location) && genera.equals(band.genera) && email.equals(band.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, location, genera, email);
     }
 
     @Override
