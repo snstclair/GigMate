@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class GigsDaoTest {
     GenericDao dao;
@@ -44,5 +43,27 @@ public class GigsDaoTest {
 
         assertEquals(4, gigs.size());
 
+    }
+
+    @Test
+    void insertSuccess() {
+        GenericDao bandDao = new GenericDao(Band.class);
+        GenericDao venueDao = new GenericDao(Venue.class);
+
+        Band band = (Band)bandDao.getById(2);
+        Venue venue = (Venue)venueDao.getById(1);
+
+        Gigs newGig = new Gigs(band, venue, LocalDate.parse("2021-08-18"));
+
+        int id = dao.insert(newGig);
+
+        Gigs insertedGig = (Gigs)dao.getById(id);
+        assertEquals(newGig, insertedGig);
+    }
+
+    @Test
+    void deleteSuccess() {
+        dao.delete(dao.getById(3));
+        assertNull(dao.getById(3));
     }
 }

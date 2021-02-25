@@ -3,6 +3,7 @@ package gigmate.persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -42,20 +43,50 @@ public class GenericDao<T> {
         return list;
     }
 
-    public int insert() {
-        return 0;
+    public int insert(T entity) {
+        int id = 0;
+
+        Session session = getSession();
+        Transaction transaction = session.beginTransaction();
+
+        id = (int)session.save(entity);
+        transaction.commit();
+
+        session.close();
+        return id;
     }
 
-    public void delete() {
+    public void delete(T entity) {
+        Session session = getSession();
+        Transaction transaction = session.beginTransaction();
 
+        session.delete(entity);
+        transaction.commit();
+        session.close();
     }
 
     public List<T> getByPropertyEqual(String propertyName, String value) {
-        List<T> entities = new ArrayList<>();
+        Session session = getSession();
+
+        logger.debug("Searching for order with " + propertyName + " = " + value);
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(type);
+        Root<T> root = query.from(type);
+
+        query.select(root).where(builder.equal(root.get(propertyName), value));
+        List<T> entities = session.createQuery(query).getResultList();
+
+        session.close();
         return entities;
     }
 
-    public void saveOrUpdate() {
+    public void saveOrUpdate(T entity) {
+        Session session = getSession();
+        Transaction transaction = session.beginTransaction();
 
+        session.saveOrUpdate(entity);
+        transaction.commit();
+        session.close();
     }
 }

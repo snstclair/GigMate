@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class VenueDaoTest {
     GenericDao dao;
@@ -37,5 +36,35 @@ public class VenueDaoTest {
         List<Venue> venues = dao.getAll();
 
         assertEquals(3, venues.size());
+    }
+
+    @Test
+    void insertSuccess() {
+        Venue newVenue = new Venue("Amazing Bar", "123 A Street, Madison, WI 53704", "Indoor raised stage", "amazingbar@somehwere.com");
+        int id = dao.insert(newVenue);
+
+        Venue insertedVenue = (Venue)dao.getById(id);
+        assertEquals(newVenue, insertedVenue);
+    }
+
+    @Test
+    void deleteSuccess() {
+        dao.delete(dao.getById(2));
+        assertNull(dao.getById(2));
+    }
+
+    @Test
+    void saveOrUpdateSuccess() {
+        Venue preUpdateVenue = (Venue)dao.getById(1);
+
+        preUpdateVenue.setStageType("Small floor area");
+
+        dao.saveOrUpdate(preUpdateVenue);
+
+        Venue updatedVenue = (Venue)dao.getById(1);
+
+        assertNotEquals(preUpdateVenue, updatedVenue);
+
+        assertEquals("Small floor area", updatedVenue.getStageType());
     }
 }
