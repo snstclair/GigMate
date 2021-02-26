@@ -1,12 +1,12 @@
 package gigmate.persistence;
 
-
-import gigmate.entity.Band;
 import gigmate.entity.Venue;
 import gigmate.test.util.Database;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -63,8 +63,18 @@ public class VenueDaoTest {
 
         Venue updatedVenue = (Venue)dao.getById(1);
 
-        assertNotEquals(preUpdateVenue, updatedVenue);
+        assertNotEquals("Outdoor Patio", updatedVenue.getStageType());
 
         assertEquals("Small floor area", updatedVenue.getStageType());
+    }
+
+    @Test
+    void getByPropertyEqualSuccess() {
+        ArrayList<Venue> expectedVenue;
+        expectedVenue = (ArrayList<Venue>)dao.getByPropertyEqual("name", "Pooleys");
+        Venue actualVenue = (Venue)dao.getById(1);
+
+        assertEquals(1, expectedVenue.size());
+        assertEquals(expectedVenue.get(0), actualVenue);
     }
 }

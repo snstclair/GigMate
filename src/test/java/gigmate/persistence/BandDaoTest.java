@@ -6,6 +6,7 @@ import gigmate.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -50,5 +51,31 @@ public class BandDaoTest {
     void deleteSuccess() {
         dao.delete(dao.getById(2));
         assertNull(dao.getById(2));
+    }
+
+    @Test
+    void saveOrUpdateSuccess() {
+        Band preUpdateBand = (Band)dao.getById(1);
+
+        preUpdateBand.setLocation("Milwaukee, WI");
+
+        dao.saveOrUpdate(preUpdateBand);
+
+        Band updatedBand = (Band)dao.getById(1);
+
+        assertNotEquals("Madison, WI", updatedBand.getLocation());
+
+        assertEquals("Milwaukee, WI", updatedBand.getLocation());
+
+    }
+
+    @Test
+    void getByPropertyEqualSuccess() {
+        ArrayList<Band> expectedBand;
+        expectedBand= (ArrayList<Band>)dao.getByPropertyEqual("genera", "Punk");
+        Band actualBand = (Band)dao.getById(2);
+
+        assertEquals(1, expectedBand.size());
+        assertEquals(expectedBand.get(0), actualBand);
     }
 }
