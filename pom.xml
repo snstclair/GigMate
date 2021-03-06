@@ -9,9 +9,8 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>gigmate Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>gigmate</name>
+  <url>http://www.gigmate.com</url>
 
   <properties>
     <hibernate.version>5.4.4.Final</hibernate.version>
@@ -97,7 +96,7 @@
   </dependencies>
 
   <build>
-    <finalName>YourIndieProject</finalName>
+    <finalName>Gigmate</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
