@@ -30,6 +30,9 @@ public class Venue {
     private String email;
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Gigs> gigs = new HashSet<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     /**
      * Instantiates a new Venue.

@@ -27,6 +27,9 @@ public class Band {
     private String email;
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Gigs> gigs = new HashSet<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     /**
      * Instantiates a new Band.
