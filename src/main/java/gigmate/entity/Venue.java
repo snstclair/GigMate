@@ -30,9 +30,10 @@ public class Venue {
     private String email;
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Gigs> gigs = new HashSet<>();
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     /**
      * Instantiates a new Venue.
@@ -47,22 +48,35 @@ public class Venue {
      * @param location  the location
      * @param stageType the stage type
      * @param email     the email
+     * @param user      the user
      */
-    public Venue(String name, String location, String stageType, String email) {
-        this();
+    public Venue(String name, String location, String stageType, String email, Users user) {
         this.name = name;
         this.location = location;
         this.stageType = stageType;
         this.email = email;
+        this.user = user;
     }
 
-    public Venue(int id, String name, String location, String stageType, String email) {
+    /**
+     * Instantiates a new Venue.
+     *
+     * @param id        the id
+     * @param name      the name
+     * @param location  the location
+     * @param stageType the stage type
+     * @param email     the email
+     * @param user      the user
+     */
+    public Venue(int id, String name, String location, String stageType, String email, Users user) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.stageType = stageType;
         this.email = email;
+        this.user = user;
     }
+
 
     /**
      * Gets id.
@@ -172,17 +186,35 @@ public class Venue {
         this.gigs = gigs;
     }
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
+    public Users getUser() {
+        return user;
+    }
+
+    /**
+     * Sets user.
+     *
+     * @param users the user
+     */
+    public void setUser(Users users) {
+        this.user = users;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Venue venue = (Venue) o;
-        return id == venue.id && name.equals(venue.name) && location.equals(venue.location) && stageType.equals(venue.stageType) && email.equals(venue.email);
+        return id == venue.id && name.equals(venue.name) && location.equals(venue.location) && stageType.equals(venue.stageType) && email.equals(venue.email) && Objects.equals(gigs, venue.gigs) && user.equals(venue.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, location, stageType, email);
+        return Objects.hash(id, name, location, stageType, email, gigs, user);
     }
 
     @Override
@@ -193,6 +225,7 @@ public class Venue {
                 ", location='" + location + '\'' +
                 ", stageType='" + stageType + '\'' +
                 ", email='" + email + '\'' +
+                ", user=" + user +
                 '}';
     }
 }

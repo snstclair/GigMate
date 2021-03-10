@@ -20,9 +20,9 @@ public class UserRole {
     @Column(name = "user_name")
     private String userName;
     private String role;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     /**
      * Instantiates a new User role.
@@ -37,7 +37,7 @@ public class UserRole {
      * @param role     the role
      * @param user     the user
      */
-    public UserRole(String userName, String role, User user) {
+    public UserRole(String userName, String role, Users user) {
         this.userName = userName;
         this.role = role;
         this.user = user;
@@ -51,7 +51,7 @@ public class UserRole {
      * @param role     the role
      * @param user     the user
      */
-    public UserRole(int id, String userName, String role, User user) {
+    public UserRole(int id, String userName, String role, Users user) {
         this.id = id;
         this.userName = userName;
         this.role = role;
@@ -117,17 +117,17 @@ public class UserRole {
      *
      * @return the user
      */
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
     /**
      * Sets user.
      *
-     * @param user the user
+     * @param users the user
      */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.user = users;
     }
 
     @Override

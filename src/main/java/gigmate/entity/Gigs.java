@@ -5,6 +5,7 @@ import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,6 @@ import java.util.Objects;
  *
  * @author Sydney St. Clair
  */
-//TODO Figure out how to store time
 @Entity(name = "Gigs")
 @Table(name = "gigs")
 public class Gigs {
@@ -25,6 +25,9 @@ public class Gigs {
     @ManyToOne
     private Venue venue;
     private LocalDate date;
+    @Column(name = "start_time")
+    private LocalTime startTime;
+
 
     /**
      * Instantiates a new Gigs.
@@ -35,29 +38,33 @@ public class Gigs {
     /**
      * Instantiates a new Gigs.
      *
-     * @param band  the band
-     * @param venue the venue
-     * @param date  the date
+     * @param band      the band
+     * @param venue     the venue
+     * @param date      the date
+     * @param startTime the start time
      */
-    public Gigs(Band band, Venue venue, LocalDate date) {
+    public Gigs(Band band, Venue venue, LocalDate date, LocalTime startTime) {
         this.band = band;
         this.venue = venue;
         this.date = date;
+        this.startTime = startTime;
     }
 
     /**
      * Instantiates a new Gigs.
      *
-     * @param id    the id
-     * @param band  the band
-     * @param venue the venue
-     * @param date  the date
+     * @param id        the id
+     * @param band      the band
+     * @param venue     the venue
+     * @param date      the date
+     * @param startTime the start time
      */
-    public Gigs(int id, Band band, Venue venue, LocalDate date) {
+    public Gigs(int id, Band band, Venue venue, LocalDate date, LocalTime startTime) {
         this.id = id;
         this.band = band;
         this.venue = venue;
         this.date = date;
+        this.startTime = startTime;
     }
 
     /**
@@ -132,17 +139,35 @@ public class Gigs {
         this.date = date;
     }
 
+    /**
+     * Gets start time.
+     *
+     * @return the start time
+     */
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Sets start time.
+     *
+     * @param startTime the start time
+     */
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Gigs gigs = (Gigs) o;
-        return id == gigs.id && band.equals(gigs.band) && venue.equals(gigs.venue) && date.equals(gigs.date);
+        return id == gigs.id && band.equals(gigs.band) && venue.equals(gigs.venue) && date.equals(gigs.date) && startTime.equals(gigs.startTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, band, venue, date);
+        return Objects.hash(id, band, venue, date, startTime);
     }
 
     @Override
@@ -152,6 +177,7 @@ public class Gigs {
                 ", band=" + band +
                 ", venue=" + venue +
                 ", date=" + date +
+                ", startTime=" + startTime +
                 '}';
     }
 }

@@ -2,12 +2,14 @@ package gigmate.persistence;
 
 import gigmate.entity.Band;
 import gigmate.entity.Gigs;
+import gigmate.entity.Users;
 import gigmate.entity.Venue;
 import gigmate.test.util.Database;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class GigsDaoTest {
     @BeforeEach
     void setUp() {
         Database database = Database.getInstance();
-        database.runSQL("cleanGigsDb.sql");
+        database.runSQL("cleanDb.sql");
 
         dao = new GenericDao(Gigs.class);
 
@@ -27,12 +29,16 @@ public class GigsDaoTest {
 
     @Test
     void getByIdSuccess() {
+        GenericDao userDao = new GenericDao(Users.class);
+        Users bandUser = (Users)userDao.getById(1);
+        Users venueUser = (Users)userDao.getById(4);
+
         Gigs retrieveGig = (Gigs)dao.getById(2);
-        Band band = new Band(1, "Sky Urchin", "Madison, WI", "Indie Rock", "skyurchin@somewhere.com");
-        Venue venue = new Venue(1, "Pooleys", "5441 High Crossing Blvd, Madison, WI 53718", "Outdoor Patio", "pooleys@somewhere.com");
+        Band band = new Band(1, "Sky Urchin", "Madison, WI", "Indie Rock", "skyurchin@somewhere.com", bandUser);
+        Venue venue = new Venue(1, "Pooleys", "5441 High Crossing Blvd, Madison, WI 53718", "Outdoor Patio", "pooleys@somewhere.com", venueUser);
 
 
-        Gigs actualGig = new Gigs(2, band, venue, LocalDate.parse("2021-06-17"));
+        Gigs actualGig = new Gigs(2, band, venue, LocalDate.parse("2021-06-17"), LocalTime.parse("08:30"));
         assertNotNull(retrieveGig);
         assertEquals(actualGig, retrieveGig);
 
@@ -54,7 +60,7 @@ public class GigsDaoTest {
         Band band = (Band)bandDao.getById(2);
         Venue venue = (Venue)venueDao.getById(1);
 
-        Gigs newGig = new Gigs(band, venue, LocalDate.parse("2021-08-18"));
+        Gigs newGig = new Gigs(band, venue, LocalDate.parse("2021-08-18"), LocalTime.parse("08:00"));
 
         int id = dao.insert(newGig);
 

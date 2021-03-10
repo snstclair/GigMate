@@ -1,8 +1,8 @@
 package gigmate.persistence;
 
+import gigmate.entity.Users;
 import gigmate.entity.Venue;
 import gigmate.test.util.Database;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,15 +17,20 @@ public class VenueDaoTest {
     @BeforeEach
     void setUp() {
         Database database = Database.getInstance();
-        database.runSQL("cleanVenueDb.sql");
+        database.runSQL("cleanDb.sql");
 
         dao = new GenericDao(Venue.class);
     }
 
     @Test
     void getByIdSuccess() {
+
+        GenericDao userDao = new GenericDao(Users.class);
+        Users venueUser = (Users)userDao.getById(5);
+
+
         Venue retrieveVenue = (Venue)dao.getById(2);
-        Venue actualVenue = new Venue(2, "Keggers", "231 N Broadway, Green Bay, 54303", "Indoor small raised stage", "keggers@somewhere.com");
+        Venue actualVenue = new Venue(2, "Keggers", "231 N Broadway, Green Bay, 54303", "Indoor small raised stage", "keggers@somewhere.com", venueUser);
         assertNotNull(retrieveVenue);
         assertEquals(actualVenue, retrieveVenue);
 
@@ -40,7 +45,9 @@ public class VenueDaoTest {
 
     @Test
     void insertSuccess() {
-        Venue newVenue = new Venue("Amazing Bar", "123 A Street, Madison, WI 53704", "Indoor raised stage", "amazingbar@somehwere.com");
+        Users venueUser = new Users(7, "amazzzing", "123");
+
+        Venue newVenue = new Venue("Amazing Bar", "123 A Street, Madison, WI 53704", "Indoor raised stage", "amazingbar@somehwere.com", venueUser);
         int id = dao.insert(newVenue);
 
         Venue insertedVenue = (Venue)dao.getById(id);

@@ -27,9 +27,10 @@ public class Band {
     private String email;
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Gigs> gigs = new HashSet<>();
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     /**
      * Instantiates a new Band.
@@ -44,14 +45,15 @@ public class Band {
      * @param location the location
      * @param genera   the genera
      * @param email    the email
+     * @param user     the user
      */
-    public Band(String name, String location, String genera, String email) {
+    public Band(String name, String location, String genera, String email, Users user) {
         this.name = name;
         this.location = location;
         this.genera = genera;
         this.email = email;
+        this.user = user;
     }
-
 
     /**
      * Instantiates a new Band.
@@ -61,13 +63,15 @@ public class Band {
      * @param location the location
      * @param genera   the genera
      * @param email    the email
+     * @param user     the user
      */
-    public Band(int id, String name, String location, String genera, String email) {
+    public Band(int id, String name, String location, String genera, String email, Users user) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.genera = genera;
         this.email = email;
+        this.user = user;
     }
 
     /**
@@ -178,17 +182,35 @@ public class Band {
         this.gigs = gigs;
     }
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
+    public Users getUser() {
+        return user;
+    }
+
+    /**
+     * Sets user.
+     *
+     * @param user the user
+     */
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Band band = (Band) o;
-        return id == band.id && name.equals(band.name) && location.equals(band.location) && genera.equals(band.genera) && email.equals(band.email);
+        return id == band.id && name.equals(band.name) && location.equals(band.location) && genera.equals(band.genera) && email.equals(band.email) && Objects.equals(gigs, band.gigs) && user.equals(band.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, location, genera, email);
+        return Objects.hash(id, name, location, genera, email, gigs, user);
     }
 
     @Override
@@ -199,6 +221,7 @@ public class Band {
                 ", location='" + location + '\'' +
                 ", genera='" + genera + '\'' +
                 ", email='" + email + '\'' +
+                ", user=" + user +
                 '}';
     }
 }

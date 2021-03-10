@@ -10,9 +10,9 @@ import java.util.Objects;
  *
  * @author Sydney St. Clair
  */
-@Entity(name = "User")
-@Table(name = "user")
-public class User {
+@Entity(name = "Users")
+@Table(name = "users")
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -20,18 +20,18 @@ public class User {
     @Column(name = "user_name")
     private String userName;
     private String pass;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
     private Band band;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private Venue venue;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private UserRole userRole;
 
 
     /**
      * Instantiates a new User.
      */
-    public User() {
+    public Users() {
     }
 
     /**
@@ -40,7 +40,7 @@ public class User {
      * @param userName the user name
      * @param pass      the pass
      */
-    public User(String userName, String pass) {
+    public Users(String userName, String pass) {
         this.userName = userName;
         this.pass = pass;
     }
@@ -52,7 +52,7 @@ public class User {
      * @param userName the user name
      * @param pass      the pass
      */
-    public User(int id, String userName, String pass) {
+    public Users(int id, String userName, String pass) {
         this.id = id;
         this.userName = userName;
         this.pass = pass;
@@ -116,8 +116,8 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && userName.equals(user.userName) && pass.equals(user.pass);
+        Users users = (Users) o;
+        return id == users.id && userName.equals(users.userName) && pass.equals(users.pass);
     }
 
     @Override

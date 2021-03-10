@@ -19,6 +19,8 @@
         <mapping class="gigmate.entity.Band" />
         <mapping class="gigmate.entity.Venue" />
         <mapping class="gigmate.entity.Gigs" />
+        <mapping class="gigmate.entity.Users"/>
+        <mapping class="gigmate.entity.UserRole"/>
 
 
     </session-factory>
