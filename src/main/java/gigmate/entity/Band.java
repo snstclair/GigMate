@@ -205,12 +205,12 @@ public class Band {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Band band = (Band) o;
-        return id == band.id && name.equals(band.name) && location.equals(band.location) && genera.equals(band.genera) && email.equals(band.email) && Objects.equals(gigs, band.gigs) && user.equals(band.user);
+        return id == band.id && name.equals(band.name) && location.equals(band.location) && genera.equals(band.genera) && email.equals(band.email) && user.equals(band.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, location, genera, email, gigs, user);
+        return Objects.hash(id, name, location, genera, email, user);
     }
 
     @Override

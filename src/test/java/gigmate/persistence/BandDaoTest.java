@@ -45,6 +45,7 @@ public class BandDaoTest {
     void insertSuccess() {
         GenericDao userDao = new GenericDao(Users.class);
         Users newUser = new Users(7, "childofmoon", "123");
+        userDao.insert(newUser);
 
         Band newBand = new Band("Moonchild", "Los Angeles, CA", "Jazz", "moonchild@somehwere.com", newUser);
         int id = dao.insert(newBand);

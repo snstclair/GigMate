@@ -209,12 +209,12 @@ public class Venue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Venue venue = (Venue) o;
-        return id == venue.id && name.equals(venue.name) && location.equals(venue.location) && stageType.equals(venue.stageType) && email.equals(venue.email) && Objects.equals(gigs, venue.gigs) && user.equals(venue.user);
+        return id == venue.id && name.equals(venue.name) && location.equals(venue.location) && stageType.equals(venue.stageType) && email.equals(venue.email) && user.equals(venue.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, location, stageType, email, gigs, user);
+        return Objects.hash(id, name, location, stageType, email, user);
     }
 
     @Override

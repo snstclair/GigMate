@@ -45,7 +45,9 @@ public class VenueDaoTest {
 
     @Test
     void insertSuccess() {
+        GenericDao userDao = new GenericDao(Users.class);
         Users venueUser = new Users(7, "amazzzing", "123");
+        userDao.insert(venueUser);
 
         Venue newVenue = new Venue("Amazing Bar", "123 A Street, Madison, WI 53704", "Indoor raised stage", "amazingbar@somehwere.com", venueUser);
         int id = dao.insert(newVenue);
