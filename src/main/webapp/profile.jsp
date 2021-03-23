@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Gigmate</title>
+    <title>Gigmate User Profile</title>
 </head>
 <body>
-<a href="/profile.jsp">user profile</a>
+    User profile page
 </body>
 </html>

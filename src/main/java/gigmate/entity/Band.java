@@ -25,8 +25,10 @@ public class Band {
     private String location;
     private String genera;
     private String email;
-    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Gigs> gigs = new HashSet<>();
+    @OneToMany(mappedBy = "openingBand", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Gigs> openingGigs = new HashSet<>();
+    @OneToMany(mappedBy = "headlinerBand", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Gigs> headliningGigs = new HashSet<>();
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -165,21 +167,39 @@ public class Band {
     }
 
     /**
-     * Gets gigs.
+     * Gets opening gigs.
      *
-     * @return the gigs
+     * @return the opening gigs
      */
-    public Set<Gigs> getGigs() {
-        return gigs;
+    public Set<Gigs> getOpeningGigs() {
+        return openingGigs;
     }
 
     /**
-     * Sets gigs.
+     * Sets opening gigs.
      *
-     * @param gigs the gigs
+     * @param openingGigs the opening gigs
      */
-    public void setGigs(Set<Gigs> gigs) {
-        this.gigs = gigs;
+    public void setOpeningGigs(Set<Gigs> openingGigs) {
+        this.openingGigs = openingGigs;
+    }
+
+    /**
+     * Gets headlining gigs.
+     *
+     * @return the headlining gigs
+     */
+    public Set<Gigs> getHeadliningGigs() {
+        return headliningGigs;
+    }
+
+    /**
+     * Sets headlining gigs.
+     *
+     * @param headliningGigs the headlining gigs
+     */
+    public void setHeadliningGigs(Set<Gigs> headliningGigs) {
+        this.headliningGigs = headliningGigs;
     }
 
     /**

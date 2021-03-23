@@ -21,8 +21,13 @@ public class Gigs {
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
     @ManyToOne
-    private Band band;
+    @JoinColumn(name = "opener_id")
+    private Band openingBand;
     @ManyToOne
+    @JoinColumn(name = "headliner_id")
+    private Band headlinerBand;
+    @ManyToOne
+    @JoinColumn(name = "venue_id")
     private Venue venue;
     private LocalDate date;
     @Column(name = "start_time")
@@ -38,13 +43,15 @@ public class Gigs {
     /**
      * Instantiates a new Gigs.
      *
-     * @param band      the band
-     * @param venue     the venue
-     * @param date      the date
-     * @param startTime the start time
+     * @param openingBand   the opening band
+     * @param headlinerBand the headliner band
+     * @param venue         the venue
+     * @param date          the date
+     * @param startTime     the start time
      */
-    public Gigs(Band band, Venue venue, LocalDate date, LocalTime startTime) {
-        this.band = band;
+    public Gigs(Band openingBand, Band headlinerBand, Venue venue, LocalDate date, LocalTime startTime) {
+        this.openingBand = openingBand;
+        this.headlinerBand = headlinerBand;
         this.venue = venue;
         this.date = date;
         this.startTime = startTime;
@@ -53,15 +60,17 @@ public class Gigs {
     /**
      * Instantiates a new Gigs.
      *
-     * @param id        the id
-     * @param band      the band
-     * @param venue     the venue
-     * @param date      the date
-     * @param startTime the start time
+     * @param id            the id
+     * @param openingBand   the opening band
+     * @param headlinerBand the headliner band
+     * @param venue         the venue
+     * @param date          the date
+     * @param startTime     the start time
      */
-    public Gigs(int id, Band band, Venue venue, LocalDate date, LocalTime startTime) {
+    public Gigs(int id, Band openingBand, Band headlinerBand, Venue venue, LocalDate date, LocalTime startTime) {
         this.id = id;
-        this.band = band;
+        this.openingBand = openingBand;
+        this.headlinerBand = headlinerBand;
         this.venue = venue;
         this.date = date;
         this.startTime = startTime;
@@ -86,21 +95,39 @@ public class Gigs {
     }
 
     /**
-     * Gets band.
+     * Gets opening band.
      *
-     * @return the band
+     * @return the opening band
      */
-    public Band getBand() {
-        return band;
+    public Band getOpeningBand() {
+        return openingBand;
     }
 
     /**
-     * Sets band.
+     * Sets opening band.
      *
-     * @param band the band
+     * @param openingBand the opening band
      */
-    public void setBand(Band band) {
-        this.band = band;
+    public void setOpeningBand(Band openingBand) {
+        this.openingBand = openingBand;
+    }
+
+    /**
+     * Gets headliner band.
+     *
+     * @return the headliner band
+     */
+    public Band getHeadlinerBand() {
+        return headlinerBand;
+    }
+
+    /**
+     * Sets headliner band.
+     *
+     * @param headlinerBand the headliner band
+     */
+    public void setHeadlinerBand(Band headlinerBand) {
+        this.headlinerBand = headlinerBand;
     }
 
     /**
@@ -162,19 +189,20 @@ public class Gigs {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Gigs gigs = (Gigs) o;
-        return id == gigs.id && band.equals(gigs.band) && venue.equals(gigs.venue) && date.equals(gigs.date) && startTime.equals(gigs.startTime);
+        return id == gigs.id && openingBand.equals(gigs.openingBand) && headlinerBand.equals(gigs.headlinerBand) && venue.equals(gigs.venue) && date.equals(gigs.date) && startTime.equals(gigs.startTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, band, venue, date, startTime);
+        return Objects.hash(id, openingBand, headlinerBand, venue, date, startTime);
     }
 
     @Override
     public String toString() {
         return "Gigs{" +
                 "id=" + id +
-                ", band=" + band +
+                ", openingBand=" + openingBand +
+                ", headlinerBand=" + headlinerBand +
                 ", venue=" + venue +
                 ", date=" + date +
                 ", startTime=" + startTime +
