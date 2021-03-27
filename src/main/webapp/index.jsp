@@ -11,6 +11,7 @@
     <title>Gigmate</title>
 </head>
 <body>
-<a href="/profile.jsp">user profile</a>
+
+<a href="profile.jsp">user profile</a>
 </body>
 </html>

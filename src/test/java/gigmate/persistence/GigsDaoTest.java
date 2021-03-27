@@ -8,6 +8,7 @@ import gigmate.test.util.Database;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class GigsDaoTest {
 
     }
 
+    @Disabled
     @Test
     void getByIdSuccess() {
         GenericDao userDao = new GenericDao(Users.class);
@@ -57,6 +59,7 @@ public class GigsDaoTest {
 
     }
 
+    @Disabled
     @Test
     void insertSuccess() {
         GenericDao bandDao = new GenericDao(Band.class);
@@ -80,6 +83,7 @@ public class GigsDaoTest {
         assertNull(dao.getById(3));
     }
 
+    @Disabled
     @Test
     void saveOrUpdateSuccess() {
         Gigs preUpdateGig = (Gigs)dao.getById(1);
