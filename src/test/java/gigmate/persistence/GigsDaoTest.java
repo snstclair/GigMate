@@ -5,7 +5,6 @@ import gigmate.entity.Gigs;
 import gigmate.entity.Users;
 import gigmate.entity.Venue;
 import gigmate.test.util.Database;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -74,7 +73,7 @@ public class GigsDaoTest {
         int id = dao.insert(newGig);
 
         Gigs insertedGig = (Gigs)dao.getById(id);
-        Assertions.assertEquals(newGig, insertedGig);
+        assertEquals(newGig, insertedGig);
     }
 
     @Test
