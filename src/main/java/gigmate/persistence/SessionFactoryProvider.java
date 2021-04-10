@@ -1,5 +1,7 @@
 package gigmate.persistence;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -14,7 +16,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  * @version 2.0 1/27/18.
  */
 public class SessionFactoryProvider {
-
+    private final Logger logger = LogManager.getLogger(this.getClass());
     private static SessionFactory sessionFactory;
 
     /**

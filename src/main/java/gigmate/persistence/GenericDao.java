@@ -49,12 +49,8 @@ public class GenericDao<T> {
         Session session = getSession();
         Transaction transaction = session.beginTransaction();
 
-        logger.debug(entity);
-
         id = (int)session.save(entity);
         transaction.commit();
-
-        logger.debug(entity);
 
         session.close();
         return id;

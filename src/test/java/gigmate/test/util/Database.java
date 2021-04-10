@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
  * @author pwaite
  * @author Alex M - Fall 2019 - added multi-line sql capability
  */
-public class Database implements PropertiesLoaderInterface {
+public class Database {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     // create an object of the class Database
@@ -39,7 +39,13 @@ public class Database implements PropertiesLoaderInterface {
      */
     private void loadProperties() {
         properties = new Properties();
-        properties = loadProperties("/database.properties");
+        try {
+            properties.load(this.getClass().getResourceAsStream("/database.properties"));
+        } catch (IOException ioException) {
+            logger.error("Error loading properties file.", ioException);
+        } catch (Exception exception) {
+            logger.error("Error loading properties file.", exception);
+        }
 
     }
 
@@ -88,7 +94,7 @@ public class Database implements PropertiesLoaderInterface {
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println("Cannot close connection" + e);
+                logger.error("Cannot close connection", e);
             }
         }
 

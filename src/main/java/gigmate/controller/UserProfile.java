@@ -13,16 +13,13 @@ import java.io.IOException;
 
 
 @WebServlet(
+        name = "UserProfile",
         urlPatterns = {"/userProfile"}
 )
 public class UserProfile extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GenericDao bandDao = new GenericDao(Band.class);
-        GenericDao venueDao = new GenericDao(Venue.class);
 
-        request.setAttribute("bands", bandDao.getAll());
-        request.setAttribute("venues", venueDao.getAll());
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
         dispatcher.forward(request, response);

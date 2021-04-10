@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
@@ -16,7 +17,10 @@
   <!-- Protect the user search page. -->
   <security-constraint>
     <web-resource-collection>
-      <web-resource-name>profile</web-resource-name>
+      <web-resource-name>RequiresRole</web-resource-name>
+      <url-pattern>/userProfile</url-pattern>
+      <!--<url-pattern>/home</url-pattern>-->
+      <url-pattern>/homePage.jsp</url-pattern>
       <url-pattern>/profile.jsp</url-pattern>
     </web-resource-collection>
     <auth-constraint>
